@@ -1,0 +1,14 @@
+GET http://localhost/test/30.cookie-settion.php
+
+// 雖然rest檔這邊沒有辨別，不過還是可以使用
+
+###
+
+GET http://localhost/test/30.cookie-settion.php
+Cookie: PHPSESSID=cm3rf8m4jrjbsoair1i1vjdqkr
+
+// Cookie: 後面一定要+空白不然格式錯誤，一定要緊貼上面不然不被當檔頭(被歸到body)
+// F12→Network→name檔案→Headers
+
+
+###

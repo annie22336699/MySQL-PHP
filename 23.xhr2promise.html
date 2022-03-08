@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BS改JS</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                    <h5 class="card-title">Ans：___</h5>
+                <form onsubmit="cde(); return false;">
+                <div class="mb-3">
+                    <label for="a" class="form-label">a</label>
+                    <input type="number" class="form-control" id="a" name="a">
+                </div>
+                    <div class="mb-3">
+                        <label for="b" class="form-label">b</label>
+                        <input type="number" class="form-control" id="b" name="b">
+                    </div>
+    
+                    <button button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+      </div>
+
+<script src="./bootstrap/js/bootstrap.js"></script>
+<script>
+    function cde() {
+        const a= document.querySelector('#a').value;
+        const b= document.querySelector('#b').value;
+
+        const fgh= new XMLHttpRequest();
+        fgh.onload=function () {
+            document.querySelector('.card-title').innerHTML = fgh.responseText;
+        }
+        fgh.open('GET', `19.bs-form-xhr-api.php?a=${a}&b=${b}`);
+        fgh.send();
+    }
+</script>
+</body>
+</html>

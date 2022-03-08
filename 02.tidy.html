@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用JSON匯出資料製作樹狀圖</title>
+</head>
+<body>
+    <div class="def"></div>
+    <script>
+        // JSON檔匯入
+        const abc= new XMLHttpRequest();
+        abc.open('get','./02.JSON.json');
+        abc.send();
+        abc.onload=function(){
+            const ccc=JSON.parse(abc.responseText);
+            console.log(ccc);
+
+            const firstData=[];
+            for(let i of ccc){
+                if(i.parent_sid==='0'){
+                    firstData.push(i);
+                };
+            };
+
+            for(let j of firstData){
+                for(let k of ccc){
+                    if(k.parent_sid===j.parent_sid){
+                        j.nodes=j.nodes || [];
+                        j.nodes.push(k);
+                    }
+                }
+            }
+            console.log(firstData);
+        };
+
+        //用for迴圈抓資料
+        // const firstar=[];
+        // for(let i of firstar){
+        //     if(i.parent_sid==='0'){
+        //         firstar.push(i);
+        //     };
+        // };
+        // console.log(firstar);
+
+    </script>
+</body>
+</html>

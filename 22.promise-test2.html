@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise 測試</title>
+</head>
+<body>
+    
+
+    <script>
+    function aaa(bbb){
+        const ccc=Math.floor(300+Math.random()*500);
+        return new Promise((ddd,eee)=>{
+            setTimeout(function(){
+                ddd([bbb*bbb, ccc]);  // 正確
+                eee('錯誤才會出現這裡');  // 錯誤
+            }, ccc);
+        });
+    }
+
+    (async()=>{
+        const test1= await aaa(555);
+        console.log(test1);
+        const test2= await aaa(666);
+        console.log(test2);
+    })();
+
+    (async()=>{
+        // 上面改寫成下方變數寫法
+        for(let i=1; i<=10;i++){
+            const test1= await aaa(i);
+            console.log(test1);
+        }
+    })();
+
+    </script>
+
+</body>
+</html>

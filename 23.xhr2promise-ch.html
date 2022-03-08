@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BS改JS</title>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ans：___</h5>
+                        <form onsubmit="abc(); return false;">
+                            <div class="mb-3">
+                                <label for="a" class="form-label">a</label>
+                                <input type="number" class="form-control" id="a" name="a">
+                            </div>
+                            <div class="mb-3">
+                                <label for="b" class="form-label">b</label>
+                                <input type="number" class="form-control" id="b" name="b">
+                            </div>
+
+                            <button button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+                    <script src="./bootstrap/js/bootstrap.js"></script>
+                    <!-- JavaScript Bundle with Popper -->
+                    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+                        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+                        crossorigin="anonymous"></script>
+                    <script>
+/*
+    //  原始檔
+    function cde() {
+        const a = document.querySelector('#a').value;
+        const b = document.querySelector('#b').value;
+                        
+        const fgh = new XMLHttpRequest();
+            fgh.onload = function () {
+                document.querySelector('.card-title').innerHTML = fgh.responseText;
+            }
+            fgh.open('GET', `19.bs-form-xhr-api.php?a=${a}&b=${b}`);
+            fgh.send();
+    }
+*/
+
+    // 改成promise，參照老師版本
+    function test(a,b){
+        return new Promise((dodo,lala)=>{
+            const fgh = new XMLHttpRequest();
+            fgh.onload = function () {
+                dodo(+fgh.responseText);
+            }
+            fgh.open('GET', `19.bs-form-xhr-api.php?a=${a}&b=${b}`);
+            fgh.send();
+        })
+
+    }
+    async function abc() {
+    const a = document.querySelector('#a').value;
+    const b = document.querySelector('#b').value;
+    document.querySelector('.card-title').innerHTML = await test(a, b);
+
+    }
+
+
+
+
+    // 自己改的版本
+
+/*
+    function abc() {
+    const a = document.querySelector('#a').value;
+    const b = document.querySelector('#b').value;
+
+    const aaa = new Promise((bbb, ccc) => {
+        setTimeout(function () {
+            bbb(`19.bs-form-xhr-api.php?a=${a}&b=${b}`);
+            ccc('發生例外或錯誤');
+            }, 1000)
+        })
+    }
+*/
+</script>
+</body>
+
+</html>

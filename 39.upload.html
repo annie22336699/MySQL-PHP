@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AXJX上傳</title>
+</head>
+<body>
+
+    <form name="uploadimg" onsubmit="return false;">
+        <input type="file" name="myfile" multiple accept="image/*">
+    </form>
+    <button onclick="doUpload()">上傳</button>
+    <br>
+    <img src="" id="abcimg">
+
+
+
+<script>
+    function doUpload(){
+        const fd= new FormData(document.uploadimg);
+
+        fetch('39.upload.php',{
+            method: 'POST',
+            body: fd,
+        }).then(r=>r.json()).then(obj=>{
+            if(obj.success){
+                document.querySelector('#abcimg').src='./uploaded/'+obj.filename;
+                // 如果成功則把圖片網址輸出到img內的src，此外filename為php檔內33行的名稱，需相符
+            }else{
+                alert(obj.error);
+            };
+        });
+    };
+</script>
+
+</body>
+</html>

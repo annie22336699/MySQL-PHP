@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AXJX上傳-多個圖檔上傳(顯示++)</title>
+    <style>
+        .img-unit{
+            display: inline-block;
+        }
+        .img-unit>img{
+            width: 250px;
+        }
+    </style>
+</head>
+<body>
+
+    <form name="uploadimg" onsubmit="return false;" style="display:none;">
+        <input id="changeimg" type="file" name="aaas[]" multiple accept="image/*">
+    </form>
+
+
+    <input type="text" id="data" readonly>
+    <button onclick="changeImg.click()">上傳</button>
+    <!-- .click為模擬點擊 -->
+
+    <br>
+
+    <div id="imgarea">
+        <!-- <div class="img-unit" data-file="8c432f75bc7e42890c9172761dcf68ab2b773385.jpg">
+            <img src="./uploaded/8c432f75bc7e42890c9172761dcf68ab2b773385.jpg" alt="">
+        </div>
+        <div class="img-unit" data-file="f3ae04a94abafe6ce1475237251bcb8c397ec611.jpg">
+            <img src="./uploaded/f3ae04a94abafe6ce1475237251bcb8c397ec611.jpg" alt="">
+        </div> -->
+    </div>
+
+
+
+<script>
+    const changeImg=document.querySelector('#changeimg');
+    const imgArea= document.querySelector('#imgarea');   // 抓imgarea來放東西
+
+    function imgputin(bbb){
+        return `<div class="img-unit" data-file="${bbb}">
+            <img src="./uploaded/${bbb}" alt="">
+        </div>`;
+    };
+
+    changeImg.addEventListener('change', doUpload);  // doUpload不用加()，不用傳參數
+
+    function doUpload(){
+        const fd= new FormData(document.uploadimg);
+
+        fetch('41.upload-mult.php',{
+            method: 'POST',
+            body: fd,
+        }).then(r=>r.json()).then(obj=>{
+            if(obj.success){
+                console.log(obj);
+
+                for(let ccc of obj.files){
+                    imgArea.innerHTML += imgputin(ccc);
+                };
+
+                // 以下會拿到檔案的亂數名稱+副檔名
+                document.querySelectorAll('.img-unit').forEach(el=>{
+                    console.log(el.getAttribute('data-file'))
+                })
+            }else{
+                alert(obj.error);
+            };
+        });
+    };
+</script>
+
+</body>
+</html>
